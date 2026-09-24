@@ -4,3 +4,8 @@ GET {{WebApiLab.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{WebApiLab.Api_HostAddress}}/math?a=2&b=3
+Accept: application/json
+
+###
