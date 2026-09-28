@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApiLab.Api.Model.Context
+namespace WebApiLab.Api.Models.Context
 {
     public class AppDbContext : DbContext
     {

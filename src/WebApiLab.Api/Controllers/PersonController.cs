@@ -5,28 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebApiLab.Api.Services;
 
 namespace WebApiLab.Api.Controllers
 {
     [Route("[controller]")]
     public class PersonController : Controller
     {
-        private readonly ILogger<PersonController> _logger;
+        private readonly IPersonServices _personService;
 
-        public PersonController(ILogger<PersonController> logger)
+        public PersonController(IPersonServices personService)
         {
-            _logger = logger;
+            _personService = personService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult GetAllPersons()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
+            var persons = _personService.FindAll();
+            return Ok(persons);
         }
     }
 }

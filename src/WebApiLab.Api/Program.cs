@@ -1,4 +1,5 @@
 using WebApiLab.Api.Services;
+using WebApiLab.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,9 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
 //SERVICES
-builder.Services.AddSingleton<IPersonServices, PersonService>();
+builder.Services.AddScoped<IPersonServices, PersonService>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
