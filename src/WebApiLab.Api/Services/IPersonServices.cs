@@ -11,6 +11,7 @@ namespace WebApiLab.Api.Services
         Person CreatePerson(Person person);
         bool DeletePerson(int id);
         List<Person> FindAll();
+        Person? FindById(int id);
         Person UpdatePerson(int id, Person person);
     }
 }

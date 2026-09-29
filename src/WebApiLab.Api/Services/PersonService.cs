@@ -19,16 +19,19 @@ namespace WebApiLab.Api.Services
 
         public Person CreatePerson(Person person)
         {
-            person.Id = new Random().Next(1, 1000); // Simulate ID generation
-            person.FirstName = person.FirstName; // Ensure FirstName is set correctly
-            person.LastName = person.LastName; // Ensure LastName is set correctly
-            person.Gender = person.Gender; // Ensure Gender is set correctly
+            _context.Persons.Add(person);
+            _context.SaveChanges();
             return person;
         }
 
         public bool DeletePerson(int id)
         {
-            return true; // Simulate successful deletion
+            var person = FindById(id);
+            if (person == null) return false;
+
+            _context.Persons.Remove(person);
+            _context.SaveChanges();
+            return true;
         }
 
         public List<Person> FindAll()
@@ -36,9 +39,22 @@ namespace WebApiLab.Api.Services
             return _context.Persons.ToList();
         }
 
+        public Person? FindById(int id)
+        {
+            return _context.Persons.FirstOrDefault(p => p.Id == id);
+        }
+
         public Person UpdatePerson(int id, Person person)
         {
-            throw new NotImplementedException();
+            var existingPerson = FindById(id);
+            if (existingPerson == null) throw new InvalidOperationException("Person not found");
+
+            existingPerson.FirstName = person.FirstName;
+            existingPerson.LastName = person.LastName;
+            existingPerson.Gender = person.Gender;
+
+            _context.SaveChanges();
+            return existingPerson;
         }
     }
 }
